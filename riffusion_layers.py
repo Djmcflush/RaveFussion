@@ -10,22 +10,20 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import math
 import torch
-from riffusion_inference.riffusion.spectrogram_image_converter import (
+from .riffusion_inference.riffusion.spectrogram_image_converter import (
     SpectrogramImageConverter,
 )
-from riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
+from .riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
 from uuid import uuid4
 import PIL.Image as Image
 
 
 def check_valid_coordinate(coordiante):
     """simple function to check if coordinate is a tuple"""
-    valid = False
-    if np.shape(coordiante) == (2,):
-        valid = True
-    if valid == False:
+    if valid := np.shape(coordiante) == (2,):
+        return valid
+    else:
         raise ValueError("Invalid Coordinate.")
-    return valid
 
 
 def normalize(vector):
@@ -129,8 +127,7 @@ class TextLayer:
         resultant_embedding = np.expand_dims(
             np.sum(resultant_embedding.T, axis=0), axis=0
         )
-        new_embedding = np.squeeze(resultant_embedding)
-        return new_embedding
+        return np.squeeze(resultant_embedding)
 
     def save_new_embedding(self, cursor_cordinate, save_path=None):
         new_encoding = self.create_new_encoding(cursor_cordinate)
@@ -138,7 +135,7 @@ class TextLayer:
         wav = self.audio_from_image(pil_image)
         if not save_path:
             uuid = uuid4()
-            save_path = "riffusion_output_" + str(uuid)
+            save_path = f"riffusion_output_{str(uuid)}"
         save_path += ".wav"
         wav.export(save_path, format="wav")
         return save_path
@@ -146,5 +143,4 @@ class TextLayer:
     def audio_from_image(self, new_encoding, save_path=None):
         params = SpectrogramParams()
         converter = SpectrogramImageConverter(params)
-        wav = converter.audio_from_spectrogram_image(image=new_encoding)
-        return wav
+        return converter.audio_from_spectrogram_image(image=new_encoding)

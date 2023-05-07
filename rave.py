@@ -1,5 +1,5 @@
 import librosa as li
-import riffusion
+import riffusion_layers
 import cached_conv as cc
 import soundfile as sf
 
@@ -8,9 +8,9 @@ class Raven:
     """This is a Rave based Audio to Audio autoencoder"""
 
     def __init__(self):
-        gin = riffusion.gin
+        gin = riffusion_layers.gin
         gin.parse_config_file("configs/v2.gin")
-        pretrained = riffusion.RAVE.load_from_checkpoint("best.ckpt")
+        pretrained = riffusion_layers.RAVE.load_from_checkpoint("best.ckpt")
         self.rave_model = pretrained.eval()
 
     def load_audio(self, wav_file, output_path, lantent_embedding_bias=None):

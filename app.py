@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, abort
 import requests
 
-from riffusion import TextLayer
+from .riffusion_layers import TextLayer
 from rave import Raven
 import clip
 from diffusers import DiffusionPipeline
