@@ -20,8 +20,13 @@ riffusion_model = None
 rave_model = Raven()
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='./reactapp/build', static_url_path='/')
 
+# serve react app
+# https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
 
 # Define the microservice that instantiates the global model
 @app.route("/init_model", methods=["POST"])
