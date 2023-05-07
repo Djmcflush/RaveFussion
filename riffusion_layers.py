@@ -2,7 +2,6 @@ import locale
 
 locale.getpreferredencoding = lambda: "UTF-8"
 
-from torch.jit import Error
 import clip
 import math
 from sklearn.decomposition import PCA
@@ -10,10 +9,13 @@ from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 import math
 import torch
-from .riffusion_inference.riffusion.spectrogram_image_converter import (
+import sys
+
+
+from riffusion_inference.riffusion.spectrogram_image_converter import (
     SpectrogramImageConverter,
 )
-from .riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
+from riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
 from uuid import uuid4
 import PIL.Image as Image
 
