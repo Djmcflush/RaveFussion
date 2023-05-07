@@ -1,6 +1,7 @@
-import locale
+# import locale
 
-locale.getpreferredencoding = lambda: "UTF-8"
+
+# locale.getpreferredencoding = 'UTF-8'
 
 import clip
 import math
@@ -18,7 +19,6 @@ from riffusion_inference.riffusion.spectrogram_image_converter import (
 from riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
 from uuid import uuid4
 import PIL.Image as Image
-
 
 def check_valid_coordinate(coordiante):
     """simple function to check if coordinate is a tuple"""
