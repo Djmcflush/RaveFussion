@@ -10,7 +10,7 @@ class Raven:
     def __init__(self):
         gin = rave.gin
         gin.parse_config_file("configs/v2.gin")
-        pretrained = riffusion_layers.RAVE.load_from_checkpoint("best.ckpt")
+        pretrained = riffusion_layers.RAVE.load_from_checkpoint("checkpoints/rave_pretrained.ckpt")
         self.rave_model = pretrained.eval()
 
     def load_audio(self, wav_file, output_path, lantent_embedding_bias=None):
