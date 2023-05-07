@@ -8,7 +8,7 @@ class Raven:
     """This is a Rave based Audio to Audio autoencoder"""
 
     def __init__(self):
-        gin = riffusion_layers.gin
+        gin = rave.gin
         gin.parse_config_file("configs/v2.gin")
         pretrained = riffusion_layers.RAVE.load_from_checkpoint("best.ckpt")
         self.rave_model = pretrained.eval()
