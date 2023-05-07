@@ -43,9 +43,9 @@ def init_model():
         model, preprocess, diffusion_pipeline, text_labels=text_labels
     )
     riffusion_model.create_inital_audio()
-
+    coordinates = riffusion_model.embeddings_coordinates_pca
     # Return a success response
-    return jsonify({"status": "success"})
+    return jsonify({"status": "success", "coordinates": coordinates})
 
 
 # Define the riffusion microservice
