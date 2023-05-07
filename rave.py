@@ -4,6 +4,7 @@ import cached_conv as cc
 import soundfile as sf
 
 class Raven():
+  '''This is a Rave based Audio to Audio autoencoder'''
   def __init__(self):
     gin = riffusion.gin
     gin.parse_config_file('configs/v2.gin')

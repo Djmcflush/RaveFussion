@@ -14,7 +14,9 @@ from riffusion_inference.riffusion.spectrogram_params import SpectrogramParams
 from uuid import uuid4
 import PIL.Image as Image
 
+
 def check_valid_coordinate(coordiante):
+  """simple function to check if coordinate is a tuple"""
   valid = False  
   if np.shape(coordiante)== (2,):
     valid = True
@@ -23,6 +25,7 @@ def check_valid_coordinate(coordiante):
   return valid
 
 def normalize(vector):
+    """Normalize distances to add up to 1"""
     total = sum(vector)
     return np.array([x / total for x in vector])
 
