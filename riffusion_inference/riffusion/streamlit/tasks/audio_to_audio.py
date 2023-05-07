@@ -52,7 +52,9 @@ def render() -> None:
         num_inference_steps = T.cast(
             int,
             st.number_input(
-                "Steps per sample", value=25, help="Number of denoising steps per model run"
+                "Steps per sample",
+                value=25,
+                help="Number of denoising steps per model run",
             ),
         )
 
@@ -89,7 +91,9 @@ def render() -> None:
     if segment.frame_rate != 44100:
         st.warning("Audio must be 44100Hz. Converting")
         segment = segment.set_frame_rate(44100)
-    st.write(f"Duration: {segment.duration_seconds:.2f}s, Sample Rate: {segment.frame_rate}Hz")
+    st.write(
+        f"Duration: {segment.duration_seconds:.2f}s, Sample Rate: {segment.frame_rate}Hz"
+    )
 
     clip_p = get_clip_params()
     start_time_s = clip_p["start_time_s"]
@@ -98,7 +102,9 @@ def render() -> None:
 
     duration_s = min(clip_p["duration_s"], segment.duration_seconds - start_time_s)
     increment_s = clip_duration_s - overlap_duration_s
-    clip_start_times = start_time_s + np.arange(0, duration_s - clip_duration_s, increment_s)
+    clip_start_times = start_time_s + np.arange(
+        0, duration_s - clip_duration_s, increment_s
+    )
 
     write_clip_details(
         clip_start_times=clip_start_times,
@@ -238,7 +244,9 @@ def render() -> None:
                 progress_callback = progress.progress
 
         if interpolate:
-            assert use_magic_mix is False, "Cannot use magic mix and interpolate together"
+            assert (
+                use_magic_mix is False
+            ), "Cannot use magic mix and interpolate together"
             inputs = InferenceInput(
                 alpha=float(alphas[i]),
                 num_inference_steps=num_inference_steps,
@@ -254,7 +262,9 @@ def render() -> None:
                 checkpoint=checkpoint,
             )
         elif use_magic_mix:
-            assert not prompt_input_a.negative_prompt, "No negative prompt with magic mix"
+            assert (
+                not prompt_input_a.negative_prompt
+            ), "No negative prompt with magic mix"
             image = streamlit_util.run_img2img_magic_mix(
                 prompt=prompt_input_a.prompt,
                 init_image=init_image_resized,
@@ -307,7 +317,9 @@ def render() -> None:
 
         if show_clip_details and show_difference:
             diff_np = np.maximum(
-                0, np.asarray(init_image).astype(np.float32) - np.asarray(image).astype(np.float32)
+                0,
+                np.asarray(init_image).astype(np.float32)
+                - np.asarray(image).astype(np.float32),
             )
             diff_image = Image.fromarray(255 - diff_np.astype(np.uint8))
             diff_segment = streamlit_util.audio_segment_from_spectrogram_image(
@@ -321,13 +333,17 @@ def render() -> None:
             st.audio(audio_bytes)
 
     # Combine clips with a crossfade based on overlap
-    combined_segment = audio_util.stitch_segments(result_segments, crossfade_s=overlap_duration_s)
+    combined_segment = audio_util.stitch_segments(
+        result_segments, crossfade_s=overlap_duration_s
+    )
 
     st.write(f"#### Final Audio ({combined_segment.duration_seconds}s)")
 
     input_name = Path(audio_file.name).stem
     output_name = f"{input_name}_{prompt_input_a.prompt.replace(' ', '_')}"
-    streamlit_util.display_and_download_audio(combined_segment, output_name, extension=extension)
+    streamlit_util.display_and_download_audio(
+        combined_segment, output_name, extension=extension
+    )
 
 
 def get_clip_params(advanced: bool = False) -> T.Dict[str, T.Any]:
@@ -394,7 +410,9 @@ def write_clip_details(
 
 
 def slice_audio_into_clips(
-    segment: pydub.AudioSegment, clip_start_times: T.Sequence[float], clip_duration_s: float
+    segment: pydub.AudioSegment,
+    clip_start_times: T.Sequence[float],
+    clip_duration_s: float,
 ) -> T.List[pydub.AudioSegment]:
     """
     Slice an audio segment into a list of clips of a given duration at the given start times.
@@ -403,13 +421,17 @@ def slice_audio_into_clips(
     for i, clip_start_time_s in enumerate(clip_start_times):
         clip_start_time_ms = int(clip_start_time_s * 1000)
         clip_duration_ms = int(clip_duration_s * 1000)
-        clip_segment = segment[clip_start_time_ms : clip_start_time_ms + clip_duration_ms]
+        clip_segment = segment[
+            clip_start_time_ms : clip_start_time_ms + clip_duration_ms
+        ]
 
         # TODO(hayk): I don't think this is working properly
         if i == len(clip_start_times) - 1:
             silence_ms = clip_duration_ms - int(clip_segment.duration_seconds * 1000)
             if silence_ms > 0:
-                clip_segment = clip_segment.append(pydub.AudioSegment.silent(duration=silence_ms))
+                clip_segment = clip_segment.append(
+                    pydub.AudioSegment.silent(duration=silence_ms)
+                )
 
         clip_segments.append(clip_segment)
 

@@ -56,7 +56,9 @@ class SpectrogramImageConverter:
 
         # Store conversion params in exif metadata of the image
         exif_data = self.p.to_exif()
-        exif_data[SpectrogramParams.ExifTags.MAX_VALUE.value] = float(np.max(spectrogram))
+        exif_data[SpectrogramParams.ExifTags.MAX_VALUE.value] = float(
+            np.max(spectrogram)
+        )
         exif = image.getexif()
         exif.update(exif_data.items())
 

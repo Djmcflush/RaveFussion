@@ -36,7 +36,9 @@ def audio_from_waveform(
     return pydub.AudioSegment.from_wav(wav_bytes)
 
 
-def apply_filters(segment: pydub.AudioSegment, compression: bool = False) -> pydub.AudioSegment:
+def apply_filters(
+    segment: pydub.AudioSegment, compression: bool = False
+) -> pydub.AudioSegment:
     """
     Apply post-processing filters to the audio segment to compress it and
     keep at a -10 dBFS level.

@@ -23,7 +23,9 @@ def plot_ffts(
     ffts = {name: compute_fft(seg) for name, seg in segments.items()}
 
     fig = go.Figure(
-        data=[go.Scatter(x=data[0], y=data[1], name=name) for name, data in ffts.items()],
+        data=[
+            go.Scatter(x=data[0], y=data[1], name=name) for name, data in ffts.items()
+        ],
         layout={"title": title},
     )
     fig.update_xaxes(

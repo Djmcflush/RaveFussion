@@ -100,7 +100,9 @@ def render() -> None:
 
     # Apply power scaling to alphas to customize the interpolation curve
     alphas_shifted = alphas * 2 - 1
-    alphas_shifted = (np.abs(alphas_shifted) ** alpha_power * np.sign(alphas_shifted) + 1) / 2
+    alphas_shifted = (
+        np.abs(alphas_shifted) ** alpha_power * np.sign(alphas_shifted) + 1
+    ) / 2
     alphas = alphas_shifted
 
     alphas_str = ", ".join([f"{alpha:.2f}" for alpha in alphas])
@@ -136,7 +138,9 @@ def render() -> None:
         init_image = Image.open(init_image_file).convert("RGB")
     else:
         init_image_path = (
-            Path(__file__).parent.parent.parent.parent / "seed_images" / f"{init_image_name}.png"
+            Path(__file__).parent.parent.parent.parent
+            / "seed_images"
+            / f"{init_image_name}.png"
         )
         init_image = Image.open(str(init_image_path)).convert("RGB")
 
@@ -175,7 +179,9 @@ def render() -> None:
     st.write("#### Final Output")
 
     # TODO(hayk): Concatenate with overlap and better blending like in audio to audio
-    audio_segments = [pydub.AudioSegment.from_file(audio_bytes) for audio_bytes in audio_bytes_list]
+    audio_segments = [
+        pydub.AudioSegment.from_file(audio_bytes) for audio_bytes in audio_bytes_list
+    ]
     concat_segment = audio_segments[0]
     for segment in audio_segments[1:]:
         concat_segment = concat_segment.append(segment, crossfade=0)
@@ -214,10 +220,14 @@ def get_prompt_inputs(
     left, right = T.cast(T.Any, st.columns(2) if cols else (st, st))
 
     visibility = "visible" if cols else "collapsed"
-    p["prompt"] = left.text_input("Prompt", label_visibility=visibility, key=f"prompt_{key}")
+    p["prompt"] = left.text_input(
+        "Prompt", label_visibility=visibility, key=f"prompt_{key}"
+    )
 
     if include_negative_prompt:
-        p["negative_prompt"] = right.text_input("Negative Prompt", key=f"negative_prompt_{key}")
+        p["negative_prompt"] = right.text_input(
+            "Negative Prompt", key=f"negative_prompt_{key}"
+        )
 
     p["seed"] = T.cast(
         int,

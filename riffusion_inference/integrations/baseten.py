@@ -33,7 +33,9 @@ class Model:
         self.checkpoint_name = "riffusion/riffusion-model-v1"
 
         # Download entire seed image folder from huggingface hub
-        self._seed_images_dir = snapshot_download(self.checkpoint_name, allow_patterns="*.png")
+        self._seed_images_dir = snapshot_download(
+            self.checkpoint_name, allow_patterns="*.png"
+        )
 
     def load(self):
         """

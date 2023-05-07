@@ -71,7 +71,9 @@ class SampleClipsTest(TestCase):
 
             # Check that it has the right duration
             segment = pydub.AudioSegment.from_file(clip_path)
-            self.assertEqual(round(segment.duration_seconds * 1000), params["duration_ms"])
+            self.assertEqual(
+                round(segment.duration_seconds * 1000), params["duration_ms"]
+            )
 
             # Check that it has the right number of channels
             if params["mono"]:

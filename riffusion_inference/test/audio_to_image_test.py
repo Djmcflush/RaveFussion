@@ -75,7 +75,9 @@ class AudioToImageTest(TestCase):
         self.assertEqual(pil_image.height, params["num_frequencies"])
 
         # Get channels as numpy arrays
-        channels = [np.array(pil_image.getchannel(i)) for i in range(len(pil_image.getbands()))]
+        channels = [
+            np.array(pil_image.getchannel(i)) for i in range(len(pil_image.getbands()))
+        ]
         self.assertEqual(len(channels), 3)
 
         if params["stereo"]:

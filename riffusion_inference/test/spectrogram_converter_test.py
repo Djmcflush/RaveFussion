@@ -65,7 +65,9 @@ class SpectrogramConverterTest(TestCase):
         for name, params in param_sets.items():
             converter = SpectrogramConverter(params=params, device=self.DEVICE)
             spectrogram = converter.spectrogram_from_audio(segment)
-            segments[name] = converter.audio_from_spectrogram(spectrogram, apply_filters=True)
+            segments[name] = converter.audio_from_spectrogram(
+                spectrogram, apply_filters=True
+            )
 
         # Save segments to disk
         for name, segment in segments.items():
@@ -76,8 +78,12 @@ class SpectrogramConverterTest(TestCase):
         # Check params
         self.assertEqual(segments["default"].channels, 2 if use_stereo else 1)
         self.assertEqual(segments["original"].channels, segments["default"].channels)
-        self.assertEqual(segments["original"].frame_rate, segments["default"].frame_rate)
-        self.assertEqual(segments["original"].sample_width, segments["default"].sample_width)
+        self.assertEqual(
+            segments["original"].frame_rate, segments["default"].frame_rate
+        )
+        self.assertEqual(
+            segments["original"].sample_width, segments["default"].sample_width
+        )
 
         # TODO(hayk): Test something more rigorous about the quality of the reconstruction.
 

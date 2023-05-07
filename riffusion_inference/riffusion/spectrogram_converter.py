@@ -111,7 +111,9 @@ class SpectrogramConverter:
         Returns:
             spectrogram: (channel, frequency, time)
         """
-        assert int(audio.frame_rate) == self.p.sample_rate, "Audio sample rate must match params"
+        assert (
+            int(audio.frame_rate) == self.p.sample_rate
+        ), "Audio sample rate must match params"
 
         # Get the samples as a numpy array in (batch, samples) shape
         waveform = np.array([c.get_array_of_samples() for c in audio.split_to_mono()])
