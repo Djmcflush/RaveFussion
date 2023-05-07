@@ -79,7 +79,9 @@ def render() -> None:
         st.write(f"#### Stem: {name}")
 
         output_name = f"{input_name}_{name.lower()}"
-        streamlit_util.display_and_download_audio(stem, output_name, extension=extension)
+        streamlit_util.display_and_download_audio(
+            stem, output_name, extension=extension
+        )
 
     if recombine:
         recombine_lower = [r.lower() for r in recombine]
@@ -89,7 +91,9 @@ def render() -> None:
         # Display
         st.write(f"#### Recombined: {', '.join(recombine)}")
         output_name = f"{input_name}_{'_'.join(recombine_lower)}"
-        streamlit_util.display_and_download_audio(recombined, output_name, extension=extension)
+        streamlit_util.display_and_download_audio(
+            recombined, output_name, extension=extension
+        )
 
 
 @st.cache

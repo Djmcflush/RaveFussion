@@ -26,7 +26,9 @@ class ImageToAudioTest(TestCase):
             stereo=True,
         )
 
-    def helper_image_to_audio(self, song_dir: Path, clip_name: str, stereo: bool) -> None:
+    def helper_image_to_audio(
+        self, song_dir: Path, clip_name: str, stereo: bool
+    ) -> None:
         if stereo:
             image_stem = clip_name + "_stereo"
         else:

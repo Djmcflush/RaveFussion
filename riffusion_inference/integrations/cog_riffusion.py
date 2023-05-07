@@ -60,7 +60,9 @@ class RiffusionPredictor(BasePredictor):
 
     def predict(
         self,
-        prompt_a: str = Input(description="The prompt for your audio", default="funky synth solo"),
+        prompt_a: str = Input(
+            description="The prompt for your audio", default="funky synth solo"
+        ),
         denoising: float = Input(
             description="How much to transform input spectrogram",
             default=0.75,
@@ -113,7 +115,9 @@ class RiffusionPredictor(BasePredictor):
         )
 
         # Execute the model to get the spectrogram image
-        image = self.model.riffuse(riffusion_input, init_image=init_image, mask_image=None)
+        image = self.model.riffuse(
+            riffusion_input, init_image=init_image, mask_image=None
+        )
 
         # Reconstruct audio from the image
         params = SpectrogramParams()

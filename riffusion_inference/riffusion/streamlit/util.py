@@ -8,7 +8,11 @@ import typing as T
 import pydub
 import streamlit as st
 import torch
-from diffusers import DiffusionPipeline, StableDiffusionImg2ImgPipeline, StableDiffusionPipeline
+from diffusers import (
+    DiffusionPipeline,
+    StableDiffusionImg2ImgPipeline,
+    StableDiffusionPipeline,
+)
 from PIL import Image
 
 from riffusion.audio_splitter import AudioSplitter
@@ -219,7 +223,9 @@ def audio_bytes_from_spectrogram_image(
     device: str = "cuda",
     output_format: str = "mp3",
 ) -> io.BytesIO:
-    segment = audio_segment_from_spectrogram_image(image=image, params=params, device=device)
+    segment = audio_segment_from_spectrogram_image(
+        image=image, params=params, device=device
+    )
 
     audio_bytes = io.BytesIO()
     segment.export(audio_bytes, format=output_format)

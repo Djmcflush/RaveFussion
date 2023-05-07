@@ -9,10 +9,14 @@ def check_device(device: str, backup: str = "cpu") -> str:
     Check that the device is valid and available. If not,
     """
     cuda_not_found = device.lower().startswith("cuda") and not torch.cuda.is_available()
-    mps_not_found = device.lower().startswith("mps") and not torch.backends.mps.is_available()
+    mps_not_found = (
+        device.lower().startswith("mps") and not torch.backends.mps.is_available()
+    )
 
     if cuda_not_found or mps_not_found:
-        warnings.warn(f"WARNING: {device} is not available, using {backup} instead.", stacklevel=3)
+        warnings.warn(
+            f"WARNING: {device} is not available, using {backup} instead.", stacklevel=3
+        )
         return backup
 
     return device

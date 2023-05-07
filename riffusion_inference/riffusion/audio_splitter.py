@@ -89,12 +89,16 @@ class AudioSplitter:
         self.model = self.load_model().to(device)
 
     @staticmethod
-    def load_model(model_path: str = "models/hdemucs_high_trained.pt") -> torchaudio.models.HDemucs:
+    def load_model(
+        model_path: str = "models/hdemucs_high_trained.pt",
+    ) -> torchaudio.models.HDemucs:
         """
         Load the trained HDEMUCS pytorch model.
         """
         # NOTE(hayk): The sources are baked into the pretrained model and can't be changed
-        model = torchaudio.models.hdemucs_high(sources=["drums", "bass", "other", "vocals"])
+        model = torchaudio.models.hdemucs_high(
+            sources=["drums", "bass", "other", "vocals"]
+        )
 
         path = torchaudio.utils.download_asset(model_path)
         state_dict = torch.load(path)
@@ -141,7 +145,8 @@ class AudioSplitter:
 
         # Convert to pydub
         stem_segments = [
-            audio_util.audio_from_waveform(waveform, audio.frame_rate) for waveform in sources_np
+            audio_util.audio_from_waveform(waveform, audio.frame_rate)
+            for waveform in sources_np
         ]
 
         # Convert back to mono if necessary
@@ -164,9 +169,13 @@ class AudioSplitter:
         start = 0
         end = chunk_len
         overlap_frames = self.overlap_s * sample_rate
-        fade = Fade(fade_in_len=0, fade_out_len=int(overlap_frames), fade_shape="linear")
+        fade = Fade(
+            fade_in_len=0, fade_out_len=int(overlap_frames), fade_shape="linear"
+        )
 
-        final = torch.zeros(batch, len(self.model.sources), channels, length, device=self.device)
+        final = torch.zeros(
+            batch, len(self.model.sources), channels, length, device=self.device
+        )
 
         # TODO(hayk): Improve this code, which came from the torchaudio docs
         while start < length - overlap_frames:

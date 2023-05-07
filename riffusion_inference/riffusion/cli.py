@@ -18,7 +18,10 @@ from riffusion.spectrogram_params import SpectrogramParams
 from riffusion.util import image_util
 
 
-@argh.arg("--step-size-ms", help="Duration of one pixel in the X axis of the spectrogram image")
+@argh.arg(
+    "--step-size-ms",
+    help="Duration of one pixel in the X axis of the spectrogram image",
+)
 @argh.arg("--num-frequencies", help="Number of Y axes in the spectrogram image")
 def audio_to_image(
     *,
@@ -83,7 +86,9 @@ def image_to_audio(*, image: str, audio: str, device: str = "cuda"):
     try:
         params = SpectrogramParams.from_exif(exif=img_exif)
     except (KeyError, AttributeError):
-        print("WARNING: Could not find spectrogram parameters in exif data. Using defaults.")
+        print(
+            "WARNING: Could not find spectrogram parameters in exif data. Using defaults."
+        )
         params = SpectrogramParams()
 
     converter = SpectrogramImageConverter(params=params, device=device)
@@ -125,7 +130,9 @@ def sample_clips(
         clip_start_ms = np.random.randint(0, segment_duration_ms - duration_ms)
         clip = segment[clip_start_ms : clip_start_ms + duration_ms]
 
-        clip_name = f"clip_{i}_start_{clip_start_ms}_ms_duration_{duration_ms}_ms.{extension}"
+        clip_name = (
+            f"clip_{i}_start_{clip_start_ms}_ms_duration_{duration_ms}_ms.{extension}"
+        )
         clip_path = output_dir_path / clip_name
         clip.export(clip_path, format=extension)
         print(f"Wrote {clip_path}")

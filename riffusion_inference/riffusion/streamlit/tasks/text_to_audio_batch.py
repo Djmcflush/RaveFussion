@@ -136,8 +136,12 @@ def render() -> None:
                     num_inference_steps=params.get("num_inference_steps", 50),
                     guidance=params.get("guidance", 7.0),
                     width=params.get("width", 512),
-                    checkpoint=params.get("checkpoint", streamlit_util.DEFAULT_CHECKPOINT),
-                    scheduler=params.get("scheduler", streamlit_util.SCHEDULER_OPTIONS[0]),
+                    checkpoint=params.get(
+                        "checkpoint", streamlit_util.DEFAULT_CHECKPOINT
+                    ),
+                    scheduler=params.get(
+                        "scheduler", streamlit_util.SCHEDULER_OPTIONS[0]
+                    ),
                     height=512,
                     device=device,
                 )
@@ -162,10 +166,13 @@ def render() -> None:
 
                 if output_path:
                     prompt_slug = entry["prompt"].replace(" ", "_")
-                    negative_prompt_slug = entry.get("negative_prompt", "").replace(" ", "_")
+                    negative_prompt_slug = entry.get("negative_prompt", "").replace(
+                        " ", "_"
+                    )
 
                     image_path = (
-                        output_path / f"image_{i}_{prompt_slug}_neg_{negative_prompt_slug}.jpg"
+                        output_path
+                        / f"image_{i}_{prompt_slug}_neg_{negative_prompt_slug}.jpg"
                     )
                     image.save(image_path, format="JPEG")
                     entry["image_path"] = str(image_path)
