@@ -14,3 +14,10 @@ mkdir -p .checkpoints
 # Download the file from Google Drive and save it in the .checkpoints folder
 wget --no-check-certificate "https://drive.google.com/uc?id=${FILE_ID}&export=download" -O ".checkpoints/${FILE_NAME}"
 wget --no-check-certificate "https://drive.google.com/uc?id=${FILE_ID2}&export=download" -O ".checkpoints/${FILE_NAME2}"
+
+current_dir=$(pwd)
+
+export PYTHONPATH="${PYTHONPATH}:$current_dir"
+riffusion_inference_path = current_dir + 'riffusion_inference'
+export PYTHONPATH="${PYTHONPATH}:$riffusion_inference_path"
+

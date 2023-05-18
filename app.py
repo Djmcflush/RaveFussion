@@ -1,13 +1,11 @@
 from flask import Flask, jsonify, request, abort
 import requests
-from .riffusion_layers import TextLayer
+from riffusion_layers import TextLayer
 from rave import Raven
 import clip
 from diffusers import DiffusionPipeline
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
 
 model, preprocess = clip.load("ViT-L/14")
 diffusion_pipeline = DiffusionPipeline.from_pretrained(

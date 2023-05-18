@@ -1,1 +1,4 @@
+node_modules/
 checkpoints/
+.checkpoints/
+__pycache__
