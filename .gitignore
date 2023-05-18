@@ -1,4 +1,4 @@
 node_modules/
-checkpoints/
+checkpoints/rave_pretrained.ckpt
 .checkpoints/
 __pycache__

@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useRef, useEffect, useState } from 'react';
+import axios from 'axios';
 
 const Canvas = () => {
   const canvasRef = useRef(null);
@@ -26,7 +27,17 @@ const Canvas = () => {
     setMousePosition({ x: 0, y: 0 });
   };
 
+  const handleClick = async () => {
+    try {
+      const response = await axios.post('http://your-flask-server-url/text_to_audio', {
+        // You may need to send some data here...
+      });
 
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <>
       <div style={{display:'flex', flexDirection:'column', gap: '1em', alignItems: 'center'}}>

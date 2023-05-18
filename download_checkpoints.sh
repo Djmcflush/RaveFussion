@@ -18,6 +18,10 @@ wget --no-check-certificate "https://drive.google.com/uc?id=${FILE_ID2}&export=d
 current_dir=$(pwd)
 
 export PYTHONPATH="${PYTHONPATH}:$current_dir"
-riffusion_inference_path = current_dir + 'riffusion_inference'
+echo "$current_dir"
+
+riffusion_inference_path="${current_dir}/riffusion_inference"
+echo "$riffusion_inference_path"
+
 export PYTHONPATH="${PYTHONPATH}:$riffusion_inference_path"
 
