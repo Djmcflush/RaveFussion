@@ -27,7 +27,7 @@ app = Flask(__name__, static_folder="./reactapp/build", static_url_path="/")
 # https://blog.miguelgrinberg.com/post/how-to-deploy-a-react--flask-project
 @app.route("/")
 def index():
-    return app.send_static_file("index.html")
+    return app.send_static_file("public/index.html")
 
 
 # Define the microservice that instantiates the global model
