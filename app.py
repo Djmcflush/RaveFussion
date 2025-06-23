@@ -7,27 +7,36 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 try:
+    logger.debug("Starting import process...")
+    
+    import os
+    import sys
+    logger.debug(f"Python path: {sys.path}")
+    logger.debug(f"Current working directory: {os.getcwd()}")
+    
+    logger.debug("Importing Flask dependencies...")
     from flask import Flask, jsonify, request, abort
     import requests
     logger.debug("Basic imports successful")
     
-    logger.debug("Attempting to import riffusion_layers")
+    logger.debug("Importing riffusion_layers...")
     from riffusion_layers import TextLayer
     logger.debug("riffusion_layers imported successfully")
     
-    logger.debug("Attempting to import rave")
+    logger.debug("Importing rave module...")
     from rave import Raven
     logger.debug("rave imported successfully")
     
-    logger.debug("Attempting to import clip")
+    logger.debug("Importing CLIP...")
     import clip
     logger.debug("clip imported successfully")
     
-    logger.debug("Attempting to import diffusers")
+    logger.debug("Importing diffusers...")
     from diffusers import DiffusionPipeline
     logger.debug("diffusers imported successfully")
     
     import os
+    logger.debug("All imports completed successfully")
 except Exception as e:
     logger.error(f"Error during imports: {str(e)}")
     raise
@@ -49,7 +58,7 @@ def init_models():
 
         print("Initializing Diffusion Pipeline...")
         diffusion_pipeline = DiffusionPipeline.from_pretrained(
-            "./models/riffusion",
+            "./riffusion-model-v1",
             local_files_only=True
         )
         print("Diffusion Pipeline initialized successfully")
