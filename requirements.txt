@@ -4,12 +4,12 @@ git+https://github.com/openai/CLIP.git
 # torch==1.13.1+cu116 
 # torchvision==0.14.1+cu116 
 # torchaudio==0.13.1 
-torchtext==0.14.1 
-torchdata==0.5.1 --extra-index-url https://download.pytorch.org/whl/cu116 
+torchtext>=0.6.0
+torchdata>=0.5.1
 diffusers 
 ftfy 
 pydub
 accelerate
 pillow>=9.1.0
 acids-rave
-# 
+#
