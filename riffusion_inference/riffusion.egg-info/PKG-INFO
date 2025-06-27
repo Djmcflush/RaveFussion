@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: riffusion
+Version: 0.3.1
+Summary: Riffusion - Stable diffusion for real-time music generation
+Home-page: https://github.com/riffusion/riffusion
+Author: Hayk Martiros
+Author-email: hayk.mart@gmail.com
+License: MIT
+Keywords: artificial intelligence,audio generation,music,diffusion,riffusion,deep learning,transformers
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: streamlit
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary

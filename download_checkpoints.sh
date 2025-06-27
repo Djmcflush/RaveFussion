@@ -25,3 +25,5 @@ echo "$riffusion_inference_path"
 
 export PYTHONPATH="${PYTHONPATH}:$riffusion_inference_path"
 
+bash download_checkpoints.sh
+

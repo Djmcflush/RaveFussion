@@ -1,26 +1,78 @@
 #!/usr/bin/env python
 
-from flask import Flask, jsonify, request, abort
-import requests
-from riffusion_layers import TextLayer
-from rave import Raven
-import clip
-from diffusers import DiffusionPipeline
-import os
+import sys
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+try:
+    logger.debug("Starting import process...")
+    
+    import os
+    import sys
+    logger.debug(f"Python path: {sys.path}")
+    logger.debug(f"Current working directory: {os.getcwd()}")
+    
+    logger.debug("Importing Flask dependencies...")
+    from flask import Flask, jsonify, request, abort
+    import requests
+    logger.debug("Basic imports successful")
+    
+    logger.debug("Importing riffusion_layers...")
+    from riffusion_layers import TextLayer
+    logger.debug("riffusion_layers imported successfully")
+    
+    logger.debug("Importing rave module...")
+    from rave import Raven
+    logger.debug("rave imported successfully")
+    
+    logger.debug("Importing CLIP...")
+    import clip
+    logger.debug("clip imported successfully")
+    
+    logger.debug("Importing diffusers...")
+    from diffusers import DiffusionPipeline
+    logger.debug("diffusers imported successfully")
+    
+    import os
+    logger.debug("All imports completed successfully")
+except Exception as e:
+    logger.error(f"Error during imports: {str(e)}")
+    raise
 
 
-model, preprocess = clip.load("ViT-L/14")
-diffusion_pipeline = DiffusionPipeline.from_pretrained(
-    "riffusion/riffusion-model-v1"
-).to("cuda")
-## Riffusion
+# Initialize models as None first
+model = None
+preprocess = None
+diffusion_pipeline = None
 riffusion_model = None
+rave_model = None
 
-##Rave
-rave_model = Raven()
+def init_models():
+    global model, preprocess, diffusion_pipeline, rave_model
+    try:
+        print("Initializing CLIP model...")
+        model, preprocess = clip.load("ViT-L/14", device='cpu')
+        print("CLIP model loaded successfully")
+
+        print("Initializing Diffusion Pipeline...")
+        diffusion_pipeline = DiffusionPipeline.from_pretrained(
+            "./riffusion-model-v1",
+            local_files_only=True
+        )
+        print("Diffusion Pipeline initialized successfully")
+
+        print("Initializing Rave model...")
+        rave_model = Raven()
+        print("Rave model initialized successfully")
+    except Exception as e:
+        print(f"Error initializing models: {str(e)}")
+        raise
 
 
 app = Flask(__name__, static_folder="./reactapp/build", static_url_path="/")
+app.logger.setLevel('DEBUG')
 
 
 # serve react app
@@ -85,4 +137,13 @@ def audio_to_audio():
 
 
 if __name__ == "__main__":
-    app.run()
+    print("Starting initialization...")
+    try:
+        init_models()
+        print("All models initialized successfully")
+        print("Starting Flask server...")
+        app.run(debug=True, port=5000)
+    except Exception as e:
+        print(f"Error during startup: {str(e)}")
+        import traceback
+        traceback.print_exc()

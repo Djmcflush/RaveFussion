@@ -1,4 +1,4 @@
-import typing as T
+print(default_api.run_command(command='streamlit run <pad_naar_je_script.py>'))
 
 import streamlit as st
 

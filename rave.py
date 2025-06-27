@@ -2,18 +2,17 @@ import librosa as li
 import riffusion_layers
 import cached_conv as cc
 import soundfile as sf
+import torch
+import numpy as np
+import gin
 
 
 class Raven:
     """This is a Rave based Audio to Audio autoencoder"""
 
     def __init__(self):
-        gin = rave.gin
-        gin.parse_config_file("configs/v2.gin")
-        pretrained = riffusion_layers.RAVE.load_from_checkpoint(
-            "checkpoints/rave_pretrained.ckpt"
-        )
-        self.rave_model = pretrained.eval()
+        print("Initializing RAVE model without checkpoints")
+        self.rave_model = None
 
     def load_audio(self, wav_file, output_path, lantent_embedding_bias=None):
         """Load an Audio file and Do a decoding run"""
